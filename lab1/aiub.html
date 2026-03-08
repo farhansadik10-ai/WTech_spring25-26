@@ -1,0 +1,93 @@
+
+        $(document).ready(function () {
+            window.onresize = function () {
+                if ($(window).height() > $(".login-form").height()) {
+                    $(".login-form").css("top", (($(window).height() - $(".login-form").height()) / 2) - 0);
+                }
+            }
+            if ($(window).height() > $(".login-form").height()) {
+                $(".login-form").css("top", (($(window).height() - $(".login-form").height()) / 2) - 0);
+            }
+
+            //FingerprintJS.load().then(fp => {
+            //    fp.get().then(result => {
+            //        var visitorId = result.visitorId;
+            //        $('#fingerPrint').val(visitorId);
+            //    });
+            //});
+
+            $("#username").focus();
+            $("#login").attr('disabled', 'disabled');
+
+            $("#login").click(function () {
+                
+                //alert('test');
+            });
+
+            $("#username").blur(function () {
+                $.ajax({
+                    type: "POST",
+                    url: '/Login/GetUsersFailedAttemptCount',
+                    data: { username: $(this).val() },
+                    cache: false,
+                    dataType: "json",
+                    success: function (data) {
+                        $("#login").removeAttr('disabled');
+
+                        if (data.count >= 3) {
+                            $('#captcha').css('display', 'block');
+                        } else {
+                            $('#captcha').css('display', 'none');
+                        }
+                    },
+                    error:function() {
+                        //alert("error");
+                    }
+                });
+
+
+            });
+
+
+        });
+
+        function Posting2(formid, url) {
+
+            var valdata = $("#" + formid).serialize();
+            $.ajax({
+                url: url,
+                headers: { 'custom-header': 'some value' },
+                type: "POST",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: valdata
+            });
+        }
+        
+        function checkValidRegistrationUserNames() {
+            
+            var validIdText = '';
+            if (validIdText === '')
+                return true;
+            
+            var userName = $('#username').val();
+            var idsPart = userName.split("-");
+            if (idsPart.length != 3) {
+                alert('Invalid UserName');
+                return false;
+            }
+            
+            if (idsPart[0].length == 2 & !idsPart[1].startsWith("9"))
+            {
+                var idPattern = "["+ idsPart[0] + "-" + idsPart[2]+"]";
+                if (!validIdText.includes(idPattern)) {
+                    alert('Sorry! you can not login during this time [03:30PM to 04:30PM]');
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+
+    
