@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Product Management Page</title>
-<link rel="stylesheet" href="/Lab Performance_MID/Design/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/Lab Performance_MID/Design/style.css">
 </head>
-
 <body>
-    
-<form >
-<h2>Product Management Page</h2>
+    <form>
+        <p>Product Management page</p>
+        <div>
+        <label for="uprice">Unit Price:</label>
+        
+         <input type="text" id="price" value="1000">
+        </div>
+        
+        <div>
+            <label for="qperday">Quantity per Day:</label>
+            
+            <input type="text" id="qpd">
+        </div>
+        
+        <div>
+            <label for="tprice">Total Price for 30 Days:</label>
+            
+            <input type="text" id="tp">
+        </div>
 
-<label>Unit Price:</label>
-<input type="text" id="unitPrice" value="1000" readonly>
-
-<label>Quantity per Day:</label>
-<input type="number" id="quantity" placeholder="Enter quantity per day">
-
-<label>Total Price for 30 Days:</label>
-<input type="text" id="total" value="0" readonly>
-
-
-</form>
-
-<script src="/Lab Performance_MID/js/Validation.js"></script>
-
+        
+    </form>
+    <script src="/Lab Performance_MID/JS/Validation.js"></script>
 </body>
 </html>

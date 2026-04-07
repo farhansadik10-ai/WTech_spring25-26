@@ -1,30 +1,38 @@
-const unitPrice = 1000;
+const price = document.getElementById('price');
+const quantity = document.getElementById("qpd");
+const total = document.getElementById("tp");
+
 const days = 30;
 
-let quantityInput = document.getElementById("quantity");
-let totalField = document.getElementById("total");
+function calculator() {
+    let unit = Number(price.value);
+    let qp = Number(quantity.value);
 
-quantityInput.addEventListener("input", function(){
-
-    let quantity = parseInt(quantityInput.value);
-
-    if(quantity < 0){
-        alert("Quantity cannot be negative");
-        quantityInput.value = 0;
-        quantity = 0;
-    }
-
-    if(isNaN(quantity)){
-        totalField.value = 0;
+    
+    if (isNaN(unit) || isNaN(qp)) {
+        total.value = "";
         return;
     }
 
-    let totalPrice = unitPrice * quantity * days;
-
-    totalField.value = totalPrice;
-
-    if(totalPrice > 1000){
-        alert("Eligible for a Gift Coupon!");
+    
+    if (qp < 0 || unit < 0) {
+        alert("Value cannot be negative!");
+        quantity.value = 0;
+        price.value = 0;
+        total.value = "";
+        return;
     }
 
-});
+    
+    let ctotal = unit * qp * days;
+    total.value = ctotal;
+
+    
+    if (ctotal > 1000) {
+        alert("Congratulations! You are eligible for a gift coupon");
+    }
+}
+
+
+quantity.addEventListener('input', calculator);
+price.addEventListener('input', calculator);
